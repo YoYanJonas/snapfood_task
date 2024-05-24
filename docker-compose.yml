@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+      - redis
+    command: ["sleep", "infinity"]
+    env_file:
+      - ./.env
+    restart: unless-stopped
+  database:
+    image: mysql:8.4.0
+    volumes:
+      - dbdata:/data/db
+    expose:
+      - 3306
+    restart: unless-stopped
+  redis:
+    image: redis:6.2-buster
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/data/redis.conf
+    command: ["redis-server", "/data/redis.conf"]
+    expose:
+      - 6379
+    restart: unless-stopped
+
+volumes:
+  dbdata:
+  redis-data:
