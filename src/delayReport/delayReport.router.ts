@@ -14,6 +14,7 @@ router.post(
   asyncWrapper(async (req: Request, res: Response) => {
     const { orderId } = req.body;
 
+    const nowTime = new Date();
     try {
       const tripRepository = MyDataSource.getRepository(Trip);
       const delayReportRepository = MyDataSource.getRepository(DelayReport);
@@ -24,8 +25,13 @@ router.post(
         where: { oid: orderId },
         relations: { vendor: true },
       });
-      console.log(order);
+
       if (!order) return res.status(400).send("order is not valid");
+
+      const order_delivery_time = new Date(order.delivery_time);
+
+      if (nowTime > order_delivery_time)
+        return res.send(400).send("order is on prep.");
 
       const vendorId = order?.vendor.vid;
       console.log(vendorId);
