@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
+  JoinTable,
 } from "typeorm";
 
 @Entity()
@@ -24,5 +25,6 @@ export class Item {
   timeToReady!: number;
 
   @ManyToMany(() => Order, (order: Order) => order.items)
+  @JoinTable()
   orders!: Order[];
 }

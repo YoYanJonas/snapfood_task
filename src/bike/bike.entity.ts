@@ -6,6 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Trip } from "../trip/trip.entity";
 
 @Entity()
 export class Bike {

@@ -5,7 +5,6 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Vendor } from "../vendor/vendor.entity";
@@ -30,6 +29,9 @@ export class Order {
 
   @Column({ type: "datetime" })
   delivery_time!: Date;
+
+  @Column({ default: false })
+  tripped!: boolean;
 
   @CreateDateColumn({ type: "datetime" })
   creation_time!: number;

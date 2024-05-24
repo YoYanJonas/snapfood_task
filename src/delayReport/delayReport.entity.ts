@@ -6,6 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Trip } from "../trip/trip.entity";
 
 @Entity()
 export class DelayReport {
@@ -14,4 +15,10 @@ export class DelayReport {
 
   @CreateDateColumn({ type: "datetime" })
   creation_time!: number;
+
+  @ManyToOne(() => Trip, (trip: Trip) => trip.delayReports, { nullable: true })
+  trip!: Trip;
+
+  @Column({ nullable: true })
+  agent!: number;
 }
