@@ -5,6 +5,7 @@ import { Trip, tripStatusOptions } from "../trip/trip.entity";
 import { DelayReport } from "./delayReport.entity";
 import { Order } from "../order/order.entity";
 import { Vendor } from "../vendor/vendor.entity";
+import { Between } from "typeorm";
 
 const router = Router();
 
@@ -77,6 +78,22 @@ router.post(
   asyncWrapper(async (req: Request, res: Response) => {
     const { vendorId } = req.body;
     try {
+      const delayReportRepository = MyDataSource.getRepository(DelayReport);
+
+      const today = new Date();
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+
+      const delayReports = await delayReportRepository.find({
+        where: {
+          creation_time: Between(weekAgo as Date, today as Date),
+        },
+        order: {
+          creation_time: "DESC",
+        },
+      });
+
+      return res.status(200).send(delayReports);
     } catch (error) {
       console.error(error);
       return res.status(500).send("fetch list of reports failed");
