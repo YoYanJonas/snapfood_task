@@ -4,6 +4,7 @@ import { MyDataSource } from "../myDataSource";
 import { Trip, tripStatusOptions } from "../trip/trip.entity";
 import { DelayReport } from "./delayReport.entity";
 import { Order } from "../order/order.entity";
+import { Vendor } from "../vendor/vendor.entity";
 
 const router = Router();
 
@@ -16,9 +17,22 @@ router.post(
       const tripRepository = MyDataSource.getRepository(Trip);
       const delayReportRepository = MyDataSource.getRepository(DelayReport);
       const orderRepository = MyDataSource.getRepository(Order);
+      const vendorRepository = MyDataSource.getRepository(Vendor);
 
-      const order = await orderRepository.findOne({ where: { oid: orderId } });
+      const order = await orderRepository.findOne({
+        where: { oid: orderId },
+        relations: { vendor: true },
+      });
+      console.log(order);
       if (!order) return res.status(400).send("order is not valid");
+
+      const vendorId = order?.vendor.vid;
+      console.log(vendorId);
+
+      const vendor = await vendorRepository.findOne({
+        where: { vid: +vendorId },
+      });
+      if (!vendor) return res.status(400).send("vendor not found");
       if (order.tripped) {
         const trip = await tripRepository.findOne({
           where: { order: orderId },
@@ -29,16 +43,24 @@ router.post(
         if (trip.status === tripStatusOptions.DELIVERED)
           return res.status(400).send("order is delivered");
 
-        // here suppose we use axios to get a new time for delivery_time in trip row
-
+        // here suppose we use axios to get a new time for delivery_time in trip row, I add 30 minutes
+        const delayTimeInMinutes = 30;
+        const delivery_time = new Date(
+          new Date(trip.delivery_time).getTime() + delayTimeInMinutes * 60000
+        );
+        await tripRepository.update(
+          { tripId: +trip.tripId },
+          { delivery_time: delivery_time as Date }
+        );
         const delayReport = new DelayReport();
         delayReport.trip = trip as Trip;
-
+        delayReport.vendor = +vendor.vid;
         await delayReportRepository.save(delayReport);
 
-        return res.status(200).send(delayReport);
+        return res.status(200).send({ delayReport, newTime: delivery_time });
       }
       const delayReport = new DelayReport();
+      delayReport.vendor = +vendor.vid;
 
       await delayReportRepository.save(delayReport);
 
@@ -46,6 +68,18 @@ router.post(
     } catch (error) {
       console.log(error);
       return res.status(500).send("error add delayReport");
+    }
+  })
+);
+
+router.post(
+  "/delay-list",
+  asyncWrapper(async (req: Request, res: Response) => {
+    const { vendorId } = req.body;
+    try {
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("fetch list of reports failed");
     }
   })
 );
