@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "338995f5-2787-47a9-9c4e-bb7c1704ec4e",
+		"name": "snapfood",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22000483"
+	},
+	"item": [
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhostV1}}/customer/check",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"customer",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"sadegh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/customer/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"customer",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bike",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhostV1}}/bike/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"bike",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "agent",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhostV1}}/agent/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"agent",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pick",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhostV1}}/agent/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"agent",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "item",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vid\": 1,\n    \"timeToReady\": 45\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/item/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"item",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vendor",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhostV1}}/vendor/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"vendor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"itemsId\": [\n        1,\n        2\n    ],\n    \"customerId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/order/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"order",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "trip",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": 1,\n    \"bikeId\": 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/trip/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"trip",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delayReport",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tripId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/delayReport/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"delayReport",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "weekly delays",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vendorId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostV1}}/delayReport/add",
+							"host": [
+								"{{localhostV1}}"
+							],
+							"path": [
+								"delayReport",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
