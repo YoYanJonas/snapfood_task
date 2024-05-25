@@ -7,6 +7,15 @@ Some simplifications due to time limits are made.
 
 ## HOW TO USE
 
+first: install node packages:
+   ```sh
+   npm install 
+   ```
+or
+```sh
+   npm ci 
+   ```
+
 1. Build and start the containers:
 
    ```sh
